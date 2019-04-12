@@ -1,4 +1,6 @@
-const Direction = require("./Direction").Direction;
+'use strict';
+
+const Direction = require('./Direction').Direction;
 
 /*  MatrixRotator(matrix)
  *
@@ -11,16 +13,43 @@ const Direction = require("./Direction").Direction;
  *        @returns the rotated matrix
  */
 module.exports = class MatrixRotator {
-  constructor( matrix ) {
+  constructor(matrix) {
     this.matrix = matrix;
   }
 
   //      |-- Must be Direction.CW
   //      v        or Direction.CCW
-  rotate (direction) {
+  rotate(direction) {
     // do work here
+    let originalArr = this.matrix;
+    let result = [];
 
-    // must be a valid Direction, see Direction.js
+    if (direction === 'ClockWise') {
+      for (let i = 0; i < originalArr.length; i++) {
+        let newArr = [];
 
+        for (let j = originalArr.length - 1; j >= 0; j--) {
+          newArr.push(originalArr[j][i]);
+        }
+
+        result.push(newArr);
+      }
+
+    }
+
+    if (direction === 'CounterClockWise') {
+      for (let i = originalArr.length - 1; i >= 0; i--) {
+        let newArr = [];
+
+        for (let j = 0; j < originalArr.length; j++) {
+          newArr.push(originalArr[j][i]);
+        }
+
+        result.push(newArr);
+      }
+    }
+
+    this.matrix = result;
+    return this.matrix;
   }
 };
